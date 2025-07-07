@@ -1,12 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const About = () => {
+export default function Jobs() {
   return (
     <View>
-      <Text>About</Text>
+      <Text>jobs</Text>
     </View>
   );
-};
-
-export default About;
+}

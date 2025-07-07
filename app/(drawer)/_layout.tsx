@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import {
   DrawerContentComponentProps,
@@ -5,84 +6,57 @@ import {
   DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { useRouter } from "expo-router";
 import { Drawer } from "expo-router/drawer";
-import { Image, Text, View } from "react-native";
+import { Text, useColorScheme, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
-  const router = useRouter();
-
-  const menuItems = [
-    {
-      id: 4,
-      title: "Logout",
-      icon: "logout",
-    },
-    {
-      id: 5,
-      title: "Help",
-      icon: "help",
-    },
-    {
-      id: 6,
-      title: "About",
-      icon: "info",
-    },
-    {
-      id: 7,
-      title: "Contact Us",
-      icon: "phone",
-    },
-    {
-      id: 8,
-      title: "Share",
-      icon: "share",
-    },
-    {
-      id: 9,
-      title: "Rate Us",
-      icon: "star",
-    },
-    {
-      id: 10,
-      title: "Feedback",
-      icon: "feedback",
-    },
-    {
-      id: 11,
-      title: "Privacy Policy",
-      icon: "shield",
-    },
-  ];
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme || "light"];
 
   return (
-    <DrawerContentScrollView {...props}>
-      <View style={{ padding: 16, alignItems: "center" }}>
-        <Image
-          source={require("@/assets/images/react-logo.png")}
-          style={{ width: 100, height: 100 }}
-        />
-        <Text>Custom Drawer Header</Text>
+    <DrawerContentScrollView
+      contentContainerStyle={{
+        paddingStart: 0,
+        paddingEnd: 0,
+      }}
+      {...props}
+    >
+      {/* Header */}
+      <View
+        style={{
+          padding: 16,
+          backgroundColor: theme.background,
+        }}
+      >
+        <Text style={{ color: theme.foreground }}>Sourov Biswas</Text>
+        <Text style={{ color: theme.foreground }}>amisourov@gmail.com</Text>
+
+        <View>
+          <Text style={{ color: theme.foreground }}>Tutor ID: 123456</Text>
+          <Text style={{ color: theme.foreground }}>Since Jul 05, 2023</Text>
+        </View>
       </View>
 
+      {/* Main content */}
       <DrawerItemList {...props} />
 
-      {menuItems.map((item) => (
+      {/* Footer */}
+      <View
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: "#ccc",
+        }}
+      >
         <DrawerItem
-          key={item.id}
-          label={item.title}
-          onPress={() =>
-            router.push({
-              pathname: "/user/[id]",
-              params: { id: item.id.toString() },
-            })
-          }
+          label="Sign Out"
+          onPress={() => console.log("Sign Out")}
+          icon={({ color, size }) => {
+            return (
+              <MaterialCommunityIcons name="logout" size={size} color={color} />
+            );
+          }}
         />
-      ))}
-
-      <View style={{ padding: 16, alignItems: "center" }}>
-        <Text>Custom Drawer Footer</Text>
       </View>
     </DrawerContentScrollView>
   );
@@ -96,40 +70,54 @@ export default function DrawerLayout() {
         screenOptions={{
           drawerActiveTintColor: "red",
           drawerHideStatusBarOnOpen: true,
+          drawerItemStyle: {
+            borderRadius: 0,
+          },
         }}
       >
         <Drawer.Screen
-          name="(tabs)"
-          options={{
-            title: "Home",
-          }}
-        />
-
-        <Drawer.Screen
           name="index"
           options={{
-            title: "Home",
-            drawerLabel: "Home",
+            title: "Dashboard",
+            drawerLabel: "Dashboard",
             drawerIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" size={size} color={color} />
+              <MaterialCommunityIcons
+                name="desktop-mac-dashboard"
+                color={color}
+                size={size}
+              />
             ),
           }}
         />
+
         <Drawer.Screen
-          name="settings"
-          options={{ title: "Settings", drawerLabel: "Settings" }}
-        />
-        <Drawer.Screen
-          name="profile"
-          options={{ title: "Profile", drawerLabel: "Profile" }}
+          name="jobs"
+          options={{
+            title: "Jobs",
+            drawerLabel: "Jobs",
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="briefcase"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
         />
 
-        {/* Hide */}
         <Drawer.Screen
-          name="user/[id]"
+          name="(account)"
           options={{
-            title: "User details",
-            drawerItemStyle: { display: "none" },
+            title: "Account",
+            drawerLabel: "Account",
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account"
+                color={color}
+                size={size}
+              />
+            ),
+            // drawerItemStyle: { display: "none" },
           }}
         />
       </Drawer>
