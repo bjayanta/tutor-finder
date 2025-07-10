@@ -1,7 +1,6 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Tabs } from "expo-router";
 import React from "react";
-
 export default function TabLayout() {
   return (
     <Tabs screenOptions={{ headerShown: false }}>
@@ -11,7 +10,18 @@ export default function TabLayout() {
           title: "account",
           tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialIcons name="account-circle" color={color} size={size} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="preference"
+        options={{
+          title: "preference",
+          tabBarLabel: "Preference",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="favorite" color={color} size={size} />
           ),
         }}
       />
@@ -22,18 +32,7 @@ export default function TabLayout() {
           title: "history",
           tabBarLabel: "History",
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="history" color={color} size={size} />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarLabel: "Settings",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="cog" color={color} size={size} />
+            <MaterialIcons name="history" color={color} size={size} />
           ),
         }}
       />

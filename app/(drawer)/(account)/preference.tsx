@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export default function Settings() {
+export default function preference() {
   return (
     <View>
-      <Text>settings</Text>
+      <Text>preference</Text>
     </View>
   );
 }

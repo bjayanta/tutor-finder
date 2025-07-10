@@ -1,10 +1,10 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-export default function Jobs() {
+export default function settings() {
   return (
     <View>
-      <Text>jobs</Text>
+      <Text>settings</Text>
     </View>
   );
 }

@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import { Menu } from "@/constants/Menu";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import {
   DrawerContentComponentProps,
@@ -13,27 +14,40 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme || "light"];
+  const menu = Menu as {
+    label: string;
+    icon: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
+    onPress: () => void;
+  }[];
 
   return (
     <DrawerContentScrollView
       contentContainerStyle={{
         paddingStart: 0,
         paddingEnd: 0,
+        backgroundColor: theme.background,
+        flex: 1,
       }}
       {...props}
     >
       {/* Header */}
       <View
         style={{
-          padding: 16,
-          backgroundColor: theme.background,
+          paddingHorizontal: 16,
+          paddingBottom: 16,
+          borderBottomWidth: 1,
+          borderBottomColor: theme.border,
         }}
       >
-        <Text style={{ color: theme.foreground }}>Sourov Biswas</Text>
+        <Text
+          style={{ fontSize: 24, fontWeight: "bold", color: theme.foreground }}
+        >
+          Sourov Biswas
+        </Text>
         <Text style={{ color: theme.foreground }}>amisourov@gmail.com</Text>
-
-        <View>
+        <View style={{ flexDirection: "row", gap: 8 }}>
           <Text style={{ color: theme.foreground }}>Tutor ID: 123456</Text>
+          <Text style={{ color: theme.foreground }}>|</Text>
           <Text style={{ color: theme.foreground }}>Since Jul 05, 2023</Text>
         </View>
       </View>
@@ -45,30 +59,48 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       <View
         style={{
           borderTopWidth: 1,
-          borderTopColor: "#ccc",
+          borderTopColor: theme.border,
         }}
       >
-        <DrawerItem
-          label="Sign Out"
-          onPress={() => console.log("Sign Out")}
-          icon={({ color, size }) => {
-            return (
-              <MaterialCommunityIcons name="logout" size={size} color={color} />
-            );
-          }}
-        />
+        {menu.map((item, index) => (
+          <DrawerItem
+            key={index}
+            label={item.label}
+            onPress={item.onPress}
+            icon={({ color, size }) => {
+              return (
+                <MaterialCommunityIcons
+                  name={item.icon}
+                  size={size}
+                  color={theme.foreground}
+                />
+              );
+            }}
+            labelStyle={{
+              color: theme.foreground,
+            }}
+            style={{
+              borderRadius: 0,
+            }}
+          />
+        ))}
       </View>
     </DrawerContentScrollView>
   );
 }
 
 export default function DrawerLayout() {
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme || "light"];
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
-          drawerActiveTintColor: "red",
+          drawerActiveTintColor: theme.secondary,
+          drawerInactiveTintColor: theme.foreground,
+          drawerActiveBackgroundColor: theme.foreground,
           drawerHideStatusBarOnOpen: true,
           drawerItemStyle: {
             borderRadius: 0,
@@ -82,19 +114,20 @@ export default function DrawerLayout() {
             drawerLabel: "Dashboard",
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons
-                name="desktop-mac-dashboard"
+                name="view-dashboard"
                 color={color}
                 size={size}
               />
             ),
+            // drawerItemStyle: { display: "none" },
           }}
         />
 
         <Drawer.Screen
-          name="jobs"
+          name="circulars"
           options={{
-            title: "Jobs",
-            drawerLabel: "Jobs",
+            title: "Circulars",
+            drawerLabel: "Circulars",
             drawerIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="briefcase"
@@ -117,7 +150,17 @@ export default function DrawerLayout() {
                 size={size}
               />
             ),
-            // drawerItemStyle: { display: "none" },
+          }}
+        />
+
+        <Drawer.Screen
+          name="settings"
+          options={{
+            title: "Settings",
+            drawerLabel: "Settings",
+            drawerIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="cog" color={color} size={size} />
+            ),
           }}
         />
       </Drawer>

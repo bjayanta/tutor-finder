@@ -1,7 +1,7 @@
 export const Colors = {
   light: {
-    background: "#ffffff",
-    foreground: "#09090b",
+    background: "#fafafa",
+    foreground: "#18181b",
 
     primary: "#ff6900",
     primaryForeground: "#fff7ed",
@@ -19,7 +19,7 @@ export const Colors = {
     border: "#e4e4e7",
   },
   dark: {
-    background: "#09090b",
+    background: "#18181b",
     foreground: "#fafafa",
 
     primary: "#f54a00",
