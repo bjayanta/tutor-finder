@@ -1,10 +1,16 @@
 export const Colors = {
   light: {
-    background: "#fafafa",
-    foreground: "#18181b",
+    background: "#ffffff",
+    foreground: "#09090b",
 
-    primary: "#ff6900",
-    primaryForeground: "#fff7ed",
+    card: "#ffffff",
+    cardForeground: "#09090b",
+
+    popover: "#ffffff",
+    popoverForeground: "#09090b",
+
+    primary: "#8e51ff",
+    primaryForeground: "#f5f3ff",
 
     secondary: "#f4f4f5",
     secondaryForeground: "#18181b",
@@ -17,13 +23,27 @@ export const Colors = {
 
     destructive: "#e7000b",
     border: "#e4e4e7",
+    text: "#09090b",
+    input: "#e4e4e7",
+    ring: "#8e51ff",
+
+    sidebar: "#fafafa",
+    sidebarForeground: "#09090b",
+
+    radius: 10,
   },
   dark: {
-    background: "#18181b",
+    background: "#09090b",
     foreground: "#fafafa",
 
-    primary: "#f54a00",
-    primaryForeground: "#fff7ed",
+    card: "#18181b",
+    cardForeground: "#fafafa",
+
+    popover: "#18181b",
+    popoverForeground: "#fafafa",
+
+    primary: "#7f22fe",
+    primaryForeground: "#f5f3ff",
 
     secondary: "#27272a",
     secondaryForeground: "#fafafa",
@@ -35,6 +55,14 @@ export const Colors = {
     accentForeground: "#fafafa",
 
     destructive: "#ff6467",
-    border: "#ffffff1a",
+    border: "#ffffff",
+    text: "#fafafa",
+    input: "#ffffff",
+    ring: "#7f22fe",
+
+    sidebar: "#18181b",
+    sidebarForeground: "#fafafa",
+
+    radius: 10,
   },
 };
