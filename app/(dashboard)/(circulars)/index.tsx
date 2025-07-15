@@ -1,3 +1,4 @@
+import { Circular } from "@/app/types/circular";
 import { convert } from "@/utils/currency";
 import { CIRCULARS } from "@/utils/data";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -5,31 +6,11 @@ import { Stack, useRouter } from "expo-router";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
-type Circular = {
-  id: number;
-  title: string;
-  salary: number;
-  standard: string;
-  subjects: string[];
-  location: {
-    area: string;
-    city: string;
-    country: string;
-  };
-  institution: string;
-  preferences: {
-    days: number;
-    gender: string;
-  };
-  createdAt: string;
-};
-
 export default function List() {
   const posts: Circular[] = CIRCULARS;
   const router = useRouter();
 
   const handlePostDetails = (index: number) => {
-    console.log(index);
     router.push(`/(circulars)/${index}`);
   };
 

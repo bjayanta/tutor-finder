@@ -59,7 +59,11 @@ export default function Index() {
               placeholderTextColor={theme.text}
               style={[
                 styles.control,
-                { borderRadius: theme.radius, borderColor: theme.border },
+                {
+                  borderRadius: theme.radius,
+                  borderColor: theme.border,
+                  color: theme.text,
+                },
               ]}
               value={email}
               onChangeText={setEmail}
@@ -73,7 +77,11 @@ export default function Index() {
               placeholderTextColor={theme.text}
               style={[
                 styles.control,
-                { borderRadius: theme.radius, borderColor: theme.border },
+                {
+                  borderRadius: theme.radius,
+                  borderColor: theme.border,
+                  color: theme.text,
+                },
               ]}
               value={password}
               onChangeText={setPassword}
