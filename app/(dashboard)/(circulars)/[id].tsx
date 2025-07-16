@@ -1,5 +1,5 @@
-import { Circular } from "@/app/types/circular";
 import { Colors } from "@/constants/Colors";
+import { Circular } from "@/types/circular";
 import { convert } from "@/utils/currency";
 import { CIRCULARS } from "@/utils/data";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
