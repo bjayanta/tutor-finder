@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   Alert,
@@ -13,21 +13,20 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
-  const router = useRouter();
+export default function ChangePassword() {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme || "light"];
+  const router = useRouter();
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [password, setPassword] = React.useState<string>("");
 
-  const handleSignin = () => {
-    if (!email || !password) {
-      Alert.alert("Sign in", "Email address and password can't be empty");
+  const handleSubmit = () => {
+    if (!password) {
+      Alert.alert("Reset password", "Password can't be empty");
       return;
     }
 
-    router.push("/(dashboard)");
+    router.push("/");
   };
 
   return (
@@ -48,10 +47,10 @@ export default function Index() {
             alt="Logo"
           />
           <Text style={[styles.title, { color: theme.text }]}>
-            Tutor Finder
+            Change Password
           </Text>
           <Text style={[styles.subtitle, { color: theme.text }]}>
-            Get access to your dashboard and more
+            Strong password can enhance your security
           </Text>
         </View>
 
@@ -59,26 +58,8 @@ export default function Index() {
         <View style={styles.form}>
           <View style={styles.input}>
             <Text style={[styles.label, { color: theme.text }]}>
-              Email address
+              Password (Minimum 8 characters)
             </Text>
-            <TextInput
-              placeholder="jayanta@example.com"
-              placeholderTextColor={theme.text}
-              style={[
-                styles.control,
-                {
-                  borderRadius: theme.radius,
-                  borderColor: theme.border,
-                  color: theme.text,
-                },
-              ]}
-              value={email}
-              onChangeText={setEmail}
-            />
-          </View>
-
-          <View style={styles.input}>
-            <Text style={[styles.label, { color: theme.text }]}>Password</Text>
             <TextInput
               placeholder="********"
               placeholderTextColor={theme.text}
@@ -94,23 +75,9 @@ export default function Index() {
               onChangeText={setPassword}
               secureTextEntry
             />
-            <Link
-              href="/forgotPassword"
-              style={[
-                styles.label,
-                {
-                  color: theme.text,
-                  marginTop: 10,
-                  fontWeight: "normal",
-                  // textDecorationLine: "underline",
-                },
-              ]}
-            >
-              Forgot your password?
-            </Link>
           </View>
 
-          <TouchableOpacity onPress={handleSignin}>
+          <TouchableOpacity onPress={handleSubmit}>
             <View
               style={[
                 styles.button,
@@ -120,25 +87,14 @@ export default function Index() {
                 },
               ]}
             >
-              <Text style={[styles.label, { color: "white" }]}>Sign in</Text>
+              <Text style={[styles.label, { color: "white" }]}>
+                Save changes
+              </Text>
             </View>
           </TouchableOpacity>
-
-          <Link
-            href="/signup"
-            style={[
-              styles.label,
-              {
-                color: theme.text,
-                letterSpacing: 0.2,
-                textAlign: "center",
-                marginTop: "auto",
-              },
-            ]}
-          >
-            Don&apos;t have an account? Sign up
-          </Link>
         </View>
+
+        <Text>Change Password screen</Text>
       </View>
     </SafeAreaView>
   );

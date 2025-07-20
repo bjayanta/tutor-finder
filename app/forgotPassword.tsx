@@ -1,9 +1,11 @@
 import { Colors } from "@/constants/Colors";
-import { Link, useRouter } from "expo-router";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   Alert,
   Image,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -13,21 +15,23 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
-  const router = useRouter();
+export default function ForgotPassword() {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme || "light"];
+  const router = useRouter();
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [mobile, setMobile] = React.useState<string>("");
 
-  const handleSignin = () => {
-    if (!email || !password) {
-      Alert.alert("Sign in", "Email address and password can't be empty");
+  const handleSubmit = () => {
+    if (!mobile) {
+      Alert.alert("Forgot password", "Mobile number can't be empty");
       return;
     }
 
-    router.push("/(dashboard)");
+    router.push({
+      pathname: "/otp",
+      params: { from: "forgotPassword", mobile },
+    });
   };
 
   return (
@@ -48,10 +52,10 @@ export default function Index() {
             alt="Logo"
           />
           <Text style={[styles.title, { color: theme.text }]}>
-            Tutor Finder
+            Forgot Password
           </Text>
           <Text style={[styles.subtitle, { color: theme.text }]}>
-            Get access to your dashboard and more
+            Get OPT to update your password
           </Text>
         </View>
 
@@ -59,10 +63,10 @@ export default function Index() {
         <View style={styles.form}>
           <View style={styles.input}>
             <Text style={[styles.label, { color: theme.text }]}>
-              Email address
+              Mobile number
             </Text>
             <TextInput
-              placeholder="jayanta@example.com"
+              placeholder="+880**********"
               placeholderTextColor={theme.text}
               style={[
                 styles.control,
@@ -72,45 +76,12 @@ export default function Index() {
                   color: theme.text,
                 },
               ]}
-              value={email}
-              onChangeText={setEmail}
+              value={mobile}
+              onChangeText={setMobile}
             />
           </View>
 
-          <View style={styles.input}>
-            <Text style={[styles.label, { color: theme.text }]}>Password</Text>
-            <TextInput
-              placeholder="********"
-              placeholderTextColor={theme.text}
-              style={[
-                styles.control,
-                {
-                  borderRadius: theme.radius,
-                  borderColor: theme.border,
-                  color: theme.text,
-                },
-              ]}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
-            <Link
-              href="/forgotPassword"
-              style={[
-                styles.label,
-                {
-                  color: theme.text,
-                  marginTop: 10,
-                  fontWeight: "normal",
-                  // textDecorationLine: "underline",
-                },
-              ]}
-            >
-              Forgot your password?
-            </Link>
-          </View>
-
-          <TouchableOpacity onPress={handleSignin}>
+          <TouchableOpacity onPress={handleSubmit}>
             <View
               style={[
                 styles.button,
@@ -120,25 +91,29 @@ export default function Index() {
                 },
               ]}
             >
-              <Text style={[styles.label, { color: "white" }]}>Sign in</Text>
+              <Text style={[styles.label, { color: "white" }]}>Send OTP</Text>
             </View>
           </TouchableOpacity>
+        </View>
 
-          <Link
-            href="/signup"
+        <Pressable
+          onPress={() => router.back()}
+          style={[styles.iconButton, { marginTop: "auto" }]}
+        >
+          <Text
             style={[
               styles.label,
-              {
-                color: theme.text,
-                letterSpacing: 0.2,
-                textAlign: "center",
-                marginTop: "auto",
-              },
+              { color: theme.text, textAlign: "center", letterSpacing: 0.2 },
             ]}
           >
-            Don&apos;t have an account? Sign up
-          </Link>
-        </View>
+            Back to Sign in
+          </Text>
+          <MaterialCommunityIcons
+            name="arrow-right"
+            size={24}
+            color={theme.text}
+          />
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -187,5 +162,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 48,
     marginTop: 24,
+  },
+  iconButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 12,
   },
 });

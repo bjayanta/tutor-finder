@@ -13,21 +13,26 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function Index() {
+export default function Signup() {
   const router = useRouter();
+
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme || "light"];
 
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState<string>("");
+  const [mobile, setMobile] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
 
-  const handleSignin = () => {
-    if (!email || !password) {
-      Alert.alert("Sign in", "Email address and password can't be empty");
+  const handleSignup = () => {
+    if (!name || !mobile || !password) {
+      Alert.alert(
+        "Sign up",
+        "Name, mobile number, and password can't be empty"
+      );
       return;
     }
 
-    router.push("/(dashboard)");
+    router.push({ pathname: "/otp", params: { from: "signup", name, mobile } });
   };
 
   return (
@@ -51,18 +56,16 @@ export default function Index() {
             Tutor Finder
           </Text>
           <Text style={[styles.subtitle, { color: theme.text }]}>
-            Get access to your dashboard and more
+            Sign up to start your journey
           </Text>
         </View>
 
         {/* Form */}
         <View style={styles.form}>
           <View style={styles.input}>
-            <Text style={[styles.label, { color: theme.text }]}>
-              Email address
-            </Text>
+            <Text style={[styles.label, { color: theme.text }]}>Full name</Text>
             <TextInput
-              placeholder="jayanta@example.com"
+              placeholder="Jone Doe"
               placeholderTextColor={theme.text}
               style={[
                 styles.control,
@@ -72,13 +75,35 @@ export default function Index() {
                   color: theme.text,
                 },
               ]}
-              value={email}
-              onChangeText={setEmail}
+              value={name}
+              onChangeText={setName}
             />
           </View>
 
           <View style={styles.input}>
-            <Text style={[styles.label, { color: theme.text }]}>Password</Text>
+            <Text style={[styles.label, { color: theme.text }]}>
+              Mobile number
+            </Text>
+            <TextInput
+              placeholder="+880**********"
+              placeholderTextColor={theme.text}
+              style={[
+                styles.control,
+                {
+                  borderRadius: theme.radius,
+                  borderColor: theme.border,
+                  color: theme.text,
+                },
+              ]}
+              value={mobile}
+              onChangeText={setMobile}
+            />
+          </View>
+
+          <View style={styles.input}>
+            <Text style={[styles.label, { color: theme.text }]}>
+              Password (Minimum 8 characters)
+            </Text>
             <TextInput
               placeholder="********"
               placeholderTextColor={theme.text}
@@ -94,23 +119,9 @@ export default function Index() {
               onChangeText={setPassword}
               secureTextEntry
             />
-            <Link
-              href="/forgotPassword"
-              style={[
-                styles.label,
-                {
-                  color: theme.text,
-                  marginTop: 10,
-                  fontWeight: "normal",
-                  // textDecorationLine: "underline",
-                },
-              ]}
-            >
-              Forgot your password?
-            </Link>
           </View>
 
-          <TouchableOpacity onPress={handleSignin}>
+          <TouchableOpacity onPress={handleSignup}>
             <View
               style={[
                 styles.button,
@@ -120,12 +131,12 @@ export default function Index() {
                 },
               ]}
             >
-              <Text style={[styles.label, { color: "white" }]}>Sign in</Text>
+              <Text style={[styles.label, { color: "white" }]}>Sign up</Text>
             </View>
           </TouchableOpacity>
 
           <Link
-            href="/signup"
+            href="/"
             style={[
               styles.label,
               {
@@ -136,7 +147,7 @@ export default function Index() {
               },
             ]}
           >
-            Don&apos;t have an account? Sign up
+            Already have an account? Sign in
           </Link>
         </View>
       </View>
